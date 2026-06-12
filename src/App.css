@@ -108,6 +108,18 @@
   object-fit: cover;
   pointer-events: none;
   z-index: 0;
+  animation: factoryBackgroundDrift 12s ease-in-out infinite alternate;
+}
+
+.factory-screen__background-glow {
+  position: absolute;
+  inset: -8% -6%;
+  background:
+    radial-gradient(circle at 72% 18%, rgba(245, 205, 255, 0.38), rgba(245, 205, 255, 0) 30%),
+    radial-gradient(circle at 18% 78%, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0) 24%);
+  z-index: 1;
+  animation: factoryBackgroundDrift 14s ease-in-out infinite alternate-reverse;
+  pointer-events: none;
 }
 
 .screen-header {
@@ -155,6 +167,7 @@
   margin-top: 16px;
   width: 375px;
   height: 306px;
+  animation: factoryEnter 0.8s ease-out both;
 }
 
 .factory-hero__image {
@@ -166,6 +179,110 @@
   object-fit: cover;
   opacity: 0.78;
   filter: drop-shadow(0 18px 28px rgba(109, 118, 188, 0.14));
+  transform-origin: center center;
+  transition:
+    transform 220ms ease-out,
+    opacity 220ms ease-out,
+    filter 220ms ease-out;
+}
+
+.factory-hero__image.has-target {
+  opacity: 0.8;
+}
+
+.factory-hero__building-highlight {
+  position: absolute;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(180, 235, 255, 0.34), rgba(180, 235, 255, 0) 70%);
+  mix-blend-mode: screen;
+  opacity: 0;
+  transform-origin: center center;
+  transition:
+    opacity 220ms ease-out,
+    transform 220ms ease-out,
+    filter 220ms ease-out;
+}
+
+.factory-hero__building-highlight--generate {
+  left: 109px;
+  top: 78px;
+  width: 164px;
+  height: 112px;
+}
+
+.factory-hero__building-highlight--warehouse {
+  left: 204px;
+  top: 150px;
+  width: 154px;
+  height: 108px;
+}
+
+.factory-hero__building-highlight--boiler {
+  left: 14px;
+  top: 126px;
+  width: 116px;
+  height: 112px;
+}
+
+.factory-hero__building-highlight--material {
+  left: 122px;
+  top: 175px;
+  width: 133px;
+  height: 96px;
+}
+
+.factory-hero__building-highlight.is-active {
+  opacity: 1;
+  transform: scale(1.05);
+  filter: blur(4px);
+}
+
+.factory-hero__building-highlight.is-dimmed {
+  opacity: 0.14;
+  transform: scale(0.98);
+}
+
+.factory-hero__roof-glow {
+  position: absolute;
+  left: 123px;
+  top: 78px;
+  width: 140px;
+  height: 36px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(178, 222, 255, 0.42), rgba(178, 222, 255, 0));
+  mix-blend-mode: screen;
+  filter: blur(8px);
+  pointer-events: none;
+  animation: roofPulse 3s ease-in-out infinite;
+}
+
+.factory-hero__smoke {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(170, 236, 255, 0.55), rgba(170, 236, 255, 0));
+  filter: blur(1px);
+  pointer-events: none;
+  animation: smokeRise 4.2s linear infinite;
+}
+
+.factory-hero__smoke--one {
+  left: 58px;
+  top: 101px;
+}
+
+.factory-hero__smoke--two {
+  left: 61px;
+  top: 92px;
+  animation-delay: 1.2s;
+}
+
+.factory-hero__smoke--three {
+  left: 61px;
+  top: 109px;
+  animation-delay: 2.3s;
 }
 
 .preview-tag {
@@ -173,6 +290,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  border: 0;
   height: 32px;
   min-width: 96px;
   padding: 0 20px;
@@ -183,26 +301,119 @@
   line-height: 20px;
   color: #0f1014;
   backdrop-filter: blur(10px);
+  transform-origin: center center;
+  animation: previewFloat 2s ease-in-out infinite;
+  transition:
+    transform 220ms ease-out,
+    opacity 220ms ease-out,
+    box-shadow 220ms ease-out,
+    font-weight 220ms ease-out,
+    background-color 220ms ease-out;
+  cursor: pointer;
 }
 
 .preview-tag--generate {
   top: 16px;
   left: 154px;
+  animation-delay: 0s;
 }
 
 .preview-tag--warehouse {
   top: 98px;
   left: 265px;
+  animation-delay: 0.35s;
 }
 
 .preview-tag--boiler {
   top: 73px;
   left: 10px;
+  animation-delay: 0.7s;
 }
 
 .preview-tag--material {
   top: 166px;
   left: 115px;
+  animation-delay: 1.05s;
+}
+
+.preview-tag.is-active {
+  transform: translateY(0) scale(1.1);
+  font-weight: 600;
+  box-shadow:
+    0 0 0 8px rgba(255, 255, 255, 0.24),
+    0 10px 24px rgba(150, 168, 255, 0.22);
+}
+
+.preview-tag.is-dimmed {
+  opacity: 0.82;
+}
+
+.factory-hero__hotspot {
+  position: absolute;
+  border: 0;
+  background: rgba(122, 192, 255, 0);
+  border-radius: 24px;
+  cursor: pointer;
+  transition:
+    transform 220ms ease-out,
+    opacity 220ms ease-out,
+    box-shadow 220ms ease-out,
+    background-color 220ms ease-out;
+}
+
+.factory-hero__hotspot--generate {
+  left: 104px;
+  top: 72px;
+  width: 182px;
+  height: 102px;
+}
+
+.factory-hero__hotspot--warehouse {
+  left: 214px;
+  top: 146px;
+  width: 145px;
+  height: 118px;
+}
+
+.factory-hero__hotspot--boiler {
+  left: 23px;
+  top: 124px;
+  width: 106px;
+  height: 116px;
+}
+
+.factory-hero__hotspot--material {
+  left: 128px;
+  top: 179px;
+  width: 125px;
+  height: 94px;
+}
+
+.factory-hero__hotspot.is-active {
+  background: rgba(153, 224, 255, 0.08);
+  box-shadow: 0 0 24px rgba(163, 225, 255, 0.46);
+  transform: scale(1.05);
+}
+
+.factory-hero__hotspot.is-dimmed {
+  transform: scale(0.98);
+  opacity: 0.8;
+}
+
+.factory-hero.is-focused .factory-hero__image {
+  transform: scale(0.98);
+  opacity: 0.8;
+}
+
+.factory-hero.is-focused .factory-hero__hotspot.is-active {
+  transform: scale(1.05);
+}
+
+.factory-hero.is-focused .factory-hero__hotspot.is-active.factory-hero__hotspot--generate ~ .factory-hero__image,
+.factory-hero.is-focused .factory-hero__hotspot.is-active.factory-hero__hotspot--warehouse ~ .factory-hero__image,
+.factory-hero.is-focused .factory-hero__hotspot.is-active.factory-hero__hotspot--boiler ~ .factory-hero__image,
+.factory-hero.is-focused .factory-hero__hotspot.is-active.factory-hero__hotspot--material ~ .factory-hero__image {
+  transform: scale(1);
 }
 
 .factory-carousel-section {
@@ -247,6 +458,68 @@
   user-select: none;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
+}
+
+@keyframes factoryEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes previewFloat {
+  0%,
+  100% {
+    transform: translateY(-3px);
+  }
+
+  50% {
+    transform: translateY(3px);
+  }
+}
+
+@keyframes smokeRise {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 12px, 0) scale(0.65);
+  }
+
+  20% {
+    opacity: 0.42;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate3d(8px, -34px, 0) scale(1.4);
+  }
+}
+
+@keyframes roofPulse {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(0.96);
+  }
+
+  50% {
+    opacity: 0.65;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes factoryBackgroundDrift {
+  0% {
+    transform: translateX(-8px);
+  }
+
+  100% {
+    transform: translateX(8px);
+  }
 }
 
 .card-carousel__viewport::-webkit-scrollbar {
@@ -407,7 +680,7 @@
 
 .library-detail {
   min-height: 812px;
-  padding: 39px 0 14px;
+  padding: 33px 0 12px;
   box-sizing: border-box;
   background: #fff;
 }
@@ -513,14 +786,14 @@
 .library-detail__hero {
   display: flex;
   align-items: center;
-  gap: 13px;
-  padding: 39px 20px 0 21px;
+  gap: 12px;
+  padding: 30px 15px 0 21px;
 }
 
 .library-detail__back {
   position: absolute;
   left: 12px;
-  top: 58px;
+  top: 50px;
   border: 0;
   background: transparent;
   padding: 0;
@@ -529,8 +802,8 @@
 
 .library-detail__title {
   margin: 0;
-  font-size: 25px;
-  line-height: 35px;
+  font-size: 26px;
+  line-height: 36px;
   font-weight: 700;
   color: #232529;
 }
@@ -544,7 +817,7 @@
 
 .library-detail__search {
   flex: 1;
-  height: 39px;
+  height: 38px;
   border-radius: 8px;
   background: #f5f7ff;
   display: flex;
@@ -578,7 +851,7 @@
 }
 
 .library-detail__section-label {
-  margin: 37px 0 0;
+  margin: 32px 0 0;
   padding-left: 21px;
   font-size: 14px;
   line-height: 20px;
@@ -586,7 +859,7 @@
 }
 
 .library-detail__list {
-  margin-top: 15px;
+  margin-top: 13px;
 }
 
 .library-detail__item {
@@ -594,7 +867,7 @@
   align-items: center;
   gap: 15px;
   padding: 0 20px 0 21px;
-  min-height: 72px;
+  min-height: 68px;
   border-top: 1px solid #f0f1f5;
 }
 
@@ -726,7 +999,7 @@
 .library-detail__file-title {
   margin: 0;
   font-size: 18px;
-  line-height: 25px;
+  line-height: 24px;
   font-weight: 600;
   color: #2e3136;
   white-space: nowrap;
@@ -735,12 +1008,12 @@
 }
 
 .library-detail__file-meta {
-  margin: 4px 0 0;
+  margin: 2px 0 0;
   display: flex;
   align-items: center;
   gap: 8px;
   font-size: 11px;
-  line-height: 16px;
+  line-height: 15px;
   color: #a4a8b2;
 }
 
@@ -752,7 +1025,7 @@
   border: 0;
   background: transparent;
   width: 16px;
-  height: 36px;
+  height: 32px;
   padding: 0;
   display: grid;
   place-items: center;
