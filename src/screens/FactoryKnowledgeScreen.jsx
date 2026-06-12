@@ -1,34 +1,13 @@
+import factoryBackground from '../assets/factory-background.png'
 import factoryScene from '../assets/factory-scene.png'
-import { factoryPreviewTags } from '../data/libraryData.js'
+import { factoryCarouselCards, factoryPreviewTags } from '../data/libraryData.js'
 import { ArrowLeftIcon } from '../components/Icons.jsx'
-import { LibraryCard } from '../components/LibraryCard.jsx'
+import { CardCarousel } from '../components/CardCarousel.jsx'
 
-export function FactoryKnowledgeScreen() {
+export function FactoryKnowledgeScreen({ onOpenLibrary }) {
   return (
     <section className="phone-screen phone-screen--factory" aria-label="工厂知识库页面">
-      <div className="ambient ambient--top-right" aria-hidden="true" />
-      <div className="ambient ambient--bottom-left" aria-hidden="true" />
-
-      <div className="factory-preview-cards" aria-hidden="true">
-        <div className="factory-preview-card factory-preview-card--left">
-          <LibraryCard
-            title="财务资料库"
-            description="财务资料库财务资料库财务资料库财务资料库"
-            total={46}
-            compact
-            tilted
-          />
-        </div>
-        <div className="factory-preview-card factory-preview-card--right">
-          <LibraryCard
-            title="节能资料库"
-            description="财务资料库财务资料库财务资料库财务资料库"
-            total={46}
-            compact
-            tilted
-          />
-        </div>
-      </div>
+      <img className="factory-screen__background" src={factoryBackground} alt="" />
 
       <header className="screen-header">
         <button className="back-link" type="button" aria-label="返回">
@@ -49,7 +28,13 @@ export function FactoryKnowledgeScreen() {
           ))}
         </div>
 
-        <div className="bottom-indicator" aria-hidden="true" />
+        <div className="factory-carousel-section">
+          <CardCarousel
+            items={factoryCarouselCards}
+            initialIndex={1}
+            onCardClick={onOpenLibrary}
+          />
+        </div>
       </main>
     </section>
   )

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { FactoryKnowledgeScreen } from './screens/FactoryKnowledgeScreen.jsx'
+import { LibraryDetailScreen } from './screens/LibraryDetailScreen.jsx'
 import { LibraryOverviewScreen } from './screens/LibraryOverviewScreen.jsx'
 import './App.css'
 
@@ -10,8 +11,18 @@ const views = [
 
 function App() {
   const [activeView, setActiveView] = useState('factory')
+  const [showDetail, setShowDetail] = useState(false)
   const ActiveScreen =
     views.find((view) => view.id === activeView)?.component ?? FactoryKnowledgeScreen
+
+  const handleOpenLibrary = () => {
+    setShowDetail(true)
+  }
+
+  const handleSwitchView = (viewId) => {
+    setShowDetail(false)
+    setActiveView(viewId)
+  }
 
   return (
     <div className="app-shell">
@@ -28,7 +39,7 @@ function App() {
               role="tab"
               aria-selected={activeView === view.id}
               className={`demo-tab${activeView === view.id ? ' is-active' : ''}`}
-              onClick={() => setActiveView(view.id)}
+              onClick={() => handleSwitchView(view.id)}
             >
               {view.label}
             </button>
@@ -37,7 +48,13 @@ function App() {
       </header>
 
       <main className="demo-stage">
-        <ActiveScreen />
+        {showDetail ? (
+          <LibraryDetailScreen onBack={() => setShowDetail(false)} />
+        ) : activeView === 'factory' ? (
+          <FactoryKnowledgeScreen onOpenLibrary={handleOpenLibrary} />
+        ) : (
+          <ActiveScreen />
+        )}
       </main>
     </div>
   )
